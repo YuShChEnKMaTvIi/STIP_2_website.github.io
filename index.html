@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Звіти з лабораторних робіт</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <ul>
+                <li><a href="lab1.html">Лабораторна робота №1</a></li>
+                <li><a href="lab2.html">Лабораторна робота №2</a></li>
+                <li><a href="lab3.html">Лабораторна робота №3</a></li>
+                <li><a href="lab4.html">Лабораторна робота №4</a></li>
+                <li><a href="lab5.html">Лабораторна робота №5</a></li>
+                <li><a href="lab6.html">Лабораторна робота №6</a></li>
+                <li><a href="lab7.html">Лабораторна робота №7</a></li>
+                <li><a href="lab8.html">Лабораторна робота №8</a></li>
+                <li><a href="lab9.html">Лабораторна робота №9</a></li>
+                <li><a href="lab10.html">Лабораторна робота №10</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <div class="scrollable-container">
+                <div class="report-box">
+                    <h1>Звіт</h1>
+                    <p>про лабораторні роботи з курсу</p>
+                    <p><strong>"Сучасні технології Інтернет-програмування"</strong></p>
+                    <p>студентки групи ІПЗ-20-1</p>
+                    <p>Ющенка Матвія</p>
+                </div>
+              
+            </div>
+        </main>
+    </div>
+    <script>
+        function toggleContent(contentId) {
+            const content = document.getElementById(contentId);
+            const allContent = document.querySelectorAll('.hidden-content');
+            allContent.forEach(function(item) {
+                if (item !== content) {
+                    item.classList.remove('active-content');
+                }
+            });
+            content.classList.toggle('active-content');
+        }
+    </script>
+</body>
+</html>

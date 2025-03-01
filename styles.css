@@ -1,0 +1,179 @@
+
+
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #003366;
+    color: white;
+    padding: 10px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 8px 10px;
+    display: block;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #00509e;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.scrollable-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+.report-box {
+    border: 2px solid #00509e;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.report-box h1,
+.report-box p {
+    margin: 10px 0;
+}
+
+/* Стиль кнопок */
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    animation: slideUp 1s forwards 0.5s;
+}
+
+.custom-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #ff6f61, #ff3d35);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    transform: scale(1);
+}
+
+.custom-button:hover {
+    background: linear-gradient(45deg, #ff3d35, #ff6f61);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.custom-button:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Анимация для появления */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Анимация для появления кнопок */
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Скрытое содержимое */
+.hidden-content {
+    display: none;
+    margin-top: 20px;
+    animation: fadeInContent 0.5s forwards;
+}
+
+@keyframes fadeInContent {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Активное содержимое */
+.active-content {
+    display: block;
+}
+
+
+
+.github-button {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007acc;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 2px solid #005f99;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.github-button:hover {
+    background-color: #005f99;
+    transform: scale(1.05);
+}
+
+.github-button:active {
+    background-color: #004a7c;
+}
