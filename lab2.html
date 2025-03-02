@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <style>
+
+
+
+        .pdf-button
+        {
+        
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #ff0202;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 2px solid #ff0f0f;
+            transition: background-color 0.3s, transform 0.2s;
+        
+        }
+        
+        
+        .pdf-button:hover {
+            background-color: #fe3213;
+            transform: scale(1.05);
+        }
+        
+        .pdf-button:active {
+            background-color: #ff2222;
+        }
+        
+        
+        
+        p
+        {
+            width: 900px
+        }
+        
+            </style>
+        
+        
+
+    <div class="container">
+        <!-- Бічна панель -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="lab1.html">Лабораторна робота №1</a></li>
+                <li><a href="lab2.html">Лабораторна робота №2</a></li>
+                <li><a href="lab3.html">Лабораторна робота №3</a></li>
+                <li><a href="lab4.html">Лабораторна робота №4</a></li>
+                <li><a href="lab5.html">Лабораторна робота №5</a></li>
+                <li><a href="lab6.html">Лабораторна робота №6</a></li>
+                <li><a href="lab7.html">Лабораторна робота №7</a></li>
+                <li><a href="lab8.html">Лабораторна робота №8</a></li>
+                <li><a href="lab9.html">Лабораторна робота №9</a></li>
+                <li><a href="lab10.html">Лабораторна робота №10</a></li>
+            </ul>
+        </nav>
+
+        <!-- Основний контент -->
+        <main class="content">
+            <h1>Лабораторна робота №2</h1>
+            <div class="buttons">
+                <button class="custom-button" onclick="toggleContent('condition')">Умова</button>
+                <button class="custom-button" onclick="toggleContent('result')">Результат</button>
+                <button class="custom-button" onclick="toggleContent('content')">Код</button>
+
+            </div>
+            <div id="condition" class="hidden-content">
+                <h3>Варіант №20</h3>
+        <h4>Завдання 1: Аналіз HTTP-запиту через браузер.</h4>
+        <h4>Завдання 2: Надсилання запиту через Postman.</h4>
+        <h4>Завдання 3: Відправка POST-запиту.</h4>
+        <h4>Завдання 4: Створення простого HTTP-сервера</h4>
+
+
+            </div>
+            <div id="result" class="hidden-content">
+
+                <a href="лаб-2.2.pdf" class="pdf-button"  target="_blank">Звіт-PDF</a>
+    
+    
+                </div>
+                <div id="content" class="hidden-content">
+    
+                    <a href="https://github.com/YuShChEnKMaTvIi/STIP-2_LABS_CODES" class="github-button" target="_blank">Посилання на GitHub</a>
+    
+                </div>
+        </main>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
