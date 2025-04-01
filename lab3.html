@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<style>
+
+
+form {
+    background: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background: #2ecc71;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+form button:hover {
+    background: #27ae60;
+}
+
+#loadEvents {
+    background: #f39c12;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+#loadEvents:hover {
+    background: #e67e22;
+}
+
+ul#eventList {
+    list-style: none;
+    padding: 0;
+}
+
+ul#eventList li {
+    background: #ffffff;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+
+</style>
+
+    <div class="container">
+        <!-- Бічна панель -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="lab1.html">Лабораторна робота №1</a></li>
+                <li><a href="lab2.html">Лабораторна робота №2</a></li>
+                <li><a href="lab3.html">Лабораторна робота №3</a></li>
+                <li><a href="lab4.html">Лабораторна робота №4</a></li>
+                <li><a href="lab5.html">Лабораторна робота №5</a></li>
+                <li><a href="lab6.html">Лабораторна робота №6</a></li>
+                <li><a href="lab7.html">Лабораторна робота №7</a></li>
+                <li><a href="lab8.html">Лабораторна робота №8</a></li>
+                <li><a href="lab9.html">Лабораторна робота №9</a></li>
+                <li><a href="lab10.html">Лабораторна робота №10</a></li>
+            </ul>
+        </nav>
+
+        <!-- Основний контент -->
+        <main class="content">
+            <h1>Лабораторна робота №3</h1>
+            <div class="buttons">
+                <button class="custom-button" onclick="toggleContent('condition')">Умова</button>
+                <button class="custom-button" onclick="toggleContent('result')">Результат</button>
+                <a href="https://github.com/YuShChEnKMaTvIi/STIP-2_LABS_CODES" class="custom-button">Код</a>
+
+            </div>
+            <div id="condition" class="hidden-content">
+                <h3>
+
+                    Загальні вимоги: <br>
+                    1. Створити HTML-сторінку з формою для введення даних. <br>
+                    2. Використовувати AJAX для надсилання та отримання даних без
+                    перезавантаження сторінки. <br>
+                    3. Отримані дані повинні оброблятися у форматі JSON. <br>
+                    4. Для кожного варіанту роботи передбачити власний серверний запит.
+                    <br>
+
+                </h3>
+                <h2>
+                       Варіант №20 - Отримати список подій GET /api/events
+                </h2>
+            </div>
+            <div id="result" class="hidden-content">
+                <h1>Список подій</h1>
+
+                <form id="eventForm">
+                    <label for="eventName">Назва події:</label>
+                    <input type="text" id="eventName" name="eventName" required>
+                    <label for="eventDate">Дата:</label>
+                    <input type="date" id="eventDate" name="eventDate" required>
+                    <button type="submit">Додати подію</button>
+                </form>
+            
+                <button id="loadEvents">Завантажити події</button>
+                <ul id="eventList"></ul>
+                
+                <script>
+                  // Функція для завантаження подій із LocalStorage
+                  function loadEvents() {
+                      const events = JSON.parse(localStorage.getItem('events')) || [];
+                      const eventList = document.getElementById("eventList");
+                      eventList.innerHTML = "";
+                      events.forEach(event => {
+                          const li = document.createElement("li");
+                          li.textContent = `${event.name} - ${event.date}`;
+                          eventList.appendChild(li);
+                      });
+                  }
+
+                  // Додавання нової події до LocalStorage
+                  document.getElementById("eventForm").addEventListener("submit", (e) => {
+                      e.preventDefault();
+                      const name = document.getElementById("eventName").value;
+                      const date = document.getElementById("eventDate").value;
+
+                      const events = JSON.parse(localStorage.getItem('events')) || [];
+                      events.push({ name, date });
+                      localStorage.setItem('events', JSON.stringify(events));
+
+                      alert("Подію додано!");
+                      document.getElementById("eventForm").reset();
+                  });
+
+                  // Завантаження подій при кліку на кнопку
+                  document.getElementById("loadEvents").addEventListener("click", loadEvents);
+
+                  // Завантаження подій при першому завантаженні сторінки
+                  window.onload = loadEvents;
+                </script>
+            </div>
+            
+        </main>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
