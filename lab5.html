@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №5</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+
+
+
+
+.pdf-button
+{
+
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #ff0202;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 2px solid #ff0f0f;
+    transition: background-color 0.3s, transform 0.2s;
+
+}
+
+
+.pdf-button:hover {
+    background-color: #fe3213;
+    transform: scale(1.05);
+}
+
+.pdf-button:active {
+    background-color: #ff2222;
+}
+
+
+
+p
+{
+    width: 900px
+}
+
+/*NEW*/
+
+h2 {
+            color: #333;
+        }
+        form {
+    width: 300px; /* фиксированная ширина */
+    margin: 20px auto; /* центрируем форму */
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+input, textarea {
+    width: 100%; /* поля на всю ширину формы */
+    margin-bottom: 12px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box; /* чтобы padding не ломал ширину */
+}
+
+        button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .ad {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .ad button {
+            background-color: #dc3545;
+        }
+        .ad button:hover {
+            background-color: #c82333;
+        }
+
+
+    </style>
+
+
+
+
+    <div class="container">
+        <!-- Бічна панель -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="lab1.html">Лабораторна робота №1</a></li>
+                <li><a href="lab2.html">Лабораторна робота №2</a></li>
+                <li><a href="lab3.html">Лабораторна робота №3</a></li>
+                <li><a href="lab4.html">Лабораторна робота №4</a></li>
+                <li><a href="lab5-копия.html">Лабораторна робота №5</a></li>
+                <li><a href="lab6.html">Лабораторна робота №6</a></li>
+                <li><a href="lab7.html">Лабораторна робота №7</a></li>
+                <li><a href="lab8.html">Лабораторна робота №8</a></li>
+                <li><a href="lab9.html">Лабораторна робота №9</a></li>
+                <li><a href="lab10.html">Лабораторна робота №10</a></li>
+            </ul>
+        </nav>
+
+        <!-- Основний контент -->
+        <main class="content">
+            <h1>Лабораторна робота №5</h1>
+            <div class="buttons">
+                <button class="custom-button" onclick="toggleContent('condition')">Умова</button>
+                <button class="custom-button" onclick="toggleContent('result')">Результат</button>
+                <button class="custom-button" onclick="toggleContent('content')">Код</button>
+
+            </div>
+            <div id="condition" class="hidden-content">
+                <h3>
+                    20. Створити API для дошки оголошень: CRUD для оголошень, авторизація JWT,
+                    WebSockets для миттєвого оновлення нових пропозицій.
+
+                </h3>
+                    
+            </div>
+            <div id="result" class="hidden-content">
+
+                <h2>Реєстрація</h2>
+                <form id="registerForm">
+                    <input type="text" id="registerUsername" placeholder="Ім'я користувача" required />
+                    <input type="password" id="registerPassword" placeholder="Пароль" required />
+                    <button type="submit">Зареєструватися</button>
+                </form>
+            
+                <h2>Вхід</h2>
+                <form id="loginForm">
+                    <input type="text" id="loginUsername" placeholder="Ім'я користувача" required />
+                    <input type="password" id="loginPassword" placeholder="Пароль" required />
+                    <button type="submit">Увійти</button>
+                </form>
+            
+                <h2>Створити/Редагувати оголошення</h2>
+                <form id="adForm" style="display:none;">
+                    <input type="text" id="adTitle" placeholder="Заголовок" required />
+                    <textarea id="adDescription" placeholder="Опис" required></textarea>
+                    <input type="number" id="adPrice" placeholder="Ціна" required />
+                    <button type="submit">Додати/Оновити оголошення</button>
+                </form>
+            
+                <h2>Оголошення</h2>
+                <div id="adsContainer"></div>
+            
+                <script>
+                    let token = null;
+                    let ads = [];
+                    let editingAdId = null;
+            
+                    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+                        e.preventDefault();
+                        const username = document.getElementById("registerUsername").value;
+                        const password = document.getElementById("registerPassword").value;
+            
+                        try {
+                            const res = await fetch("http://localhost:5000/api/register", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ username, password }),
+                            });
+            
+                            const data = await res.json();
+                            alert(data.message);
+                        } catch (error) {
+                            alert("Помилка при реєстрації");
+                        }
+                    });
+            
+                    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+                        e.preventDefault();
+                        const username = document.getElementById("loginUsername").value;
+                        const password = document.getElementById("loginPassword").value;
+            
+                        try {
+                            const res = await fetch("http://localhost:5000/api/login", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ username, password }),
+                            });
+            
+                            const data = await res.json();
+                            if (res.ok) {
+                                token = data.token;
+                                alert("Успішний вхід!");
+                                document.getElementById("adForm").style.display = "block";
+                                loadAds();
+                            } else {
+                                alert(data.message);
+                            }
+                        } catch (error) {
+                            alert("Помилка при вході");
+                        }
+                    });
+            
+                    document.getElementById("adForm").addEventListener("submit", async (e) => {
+                        e.preventDefault();
+                        const title = document.getElementById("adTitle").value;
+                        const description = document.getElementById("adDescription").value;
+                        const price = document.getElementById("adPrice").value;
+            
+                        const method = editingAdId ? "PUT" : "POST";
+                        const url = editingAdId ? `http://localhost:5000/api/ads/${editingAdId}` : "http://localhost:5000/api/ads";
+                        
+                        try {
+                            const res = await fetch(url, {
+                                method: method,
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Authorization": "Bearer " + token,
+                                },
+                                body: JSON.stringify({ title, description, price }),
+                            });
+            
+                            const ad = await res.json();
+                            if (res.ok) {
+                                document.getElementById("adForm").reset();
+                                editingAdId = null;  // Reset the editing state
+                                loadAds();  // Перезавантажити оголошення
+                            } else {
+                                alert(ad.message || "Помилка при створенні/оновленні оголошення");
+                            }
+                        } catch (error) {
+                            alert("Помилка при створенні/оновленні оголошення");
+                        }
+                    });
+            
+                    async function loadAds() {
+                        if (!token) {
+                            alert("Для перегляду оголошень потрібно увійти");
+                            return;
+                        }
+                        try {
+                            const res = await fetch("http://localhost:5000/api/ads", {
+                                headers: { "Authorization": "Bearer " + token }
+                            });
+                            const data = await res.json();
+                            ads = data;
+                            renderAds();
+                        } catch (error) {
+                            alert("Помилка при завантаженні оголошень");
+                        }
+                    }
+            
+                    function renderAds() {
+                        const adsContainer = document.getElementById("adsContainer");
+                        adsContainer.innerHTML = "";
+                        ads.forEach(ad => {
+                            const adElement = document.createElement("div");
+                            adElement.classList.add("ad");
+                            adElement.innerHTML = `
+                                <h3>${ad.title}</h3>
+                                <p>${ad.description}</p>
+                                <p>Ціна: ${ad.price} грн</p>
+                                <button onclick="deleteAd(${ad.id})">Видалити</button>
+                                <button onclick="editAd(${ad.id})">Редагувати</button>
+                            `;
+                            adsContainer.appendChild(adElement);
+                        });
+                    }
+            
+                    async function deleteAd(id) {
+                        const confirmation = confirm("Ви дійсно хочете видалити це оголошення?");
+                        if (!confirmation) return;
+            
+                        try {
+                            const res = await fetch(`http://localhost:5000/api/ads/${id}`, {
+                                method: "DELETE",
+                                headers: { "Authorization": "Bearer " + token }
+                            });
+            
+                            const data = await res.json();
+                            if (res.ok) {
+                                loadAds();
+                            } else {
+                                alert(data.message);
+                            }
+                        } catch (error) {
+                            alert("Помилка при видаленні оголошення");
+                        }
+                    }
+            
+                    function editAd(id) {
+                        const ad = ads.find(ad => ad.id === id);
+                        if (!ad) return alert("Оголошення не знайдено");
+            
+                        document.getElementById("adTitle").value = ad.title;
+                        document.getElementById("adDescription").value = ad.description;
+                        document.getElementById("adPrice").value = ad.price;
+            
+                        editingAdId = ad.id;  // Set the ID for editing
+                    }
+                </script>
+
+            <a href="лаб-2.1.pdf" class="pdf-button"  target="_blank">Звіт-PDF</a>
+
+
+            </div>
+            <div id="content" class="hidden-content">
+
+                <a href="https://github.com/YuShChEnKMaTvIi/STIP-2_LABS_CODES" class="github-button" target="_blank">Посилання на GitHub</a>
+
+            </div>
+        </main>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

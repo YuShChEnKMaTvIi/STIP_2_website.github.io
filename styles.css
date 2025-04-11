@@ -1,7 +1,3 @@
-
-
-
-
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -18,7 +14,12 @@ body {
     width: 250px;
     background-color: #003366;
     color: white;
-    padding: 10px;
+    padding: 20px; /* Увеличен внутренний отступ */
+    position: fixed; /* Закрепляем панель слева */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Задаем высоту на весь экран */
+    overflow-y: auto; /* Добавляем прокрутку для содержимого боковой панели, если это необходимо */
 }
 
 .sidebar ul {
@@ -44,6 +45,7 @@ body {
 }
 
 .content {
+    margin-left: 300px; /* Увеличен отступ от боковой панели */
     flex-grow: 1;
     padding: 20px;
     background-color: #ffffff;
@@ -153,8 +155,6 @@ body {
 .active-content {
     display: block;
 }
-
-
 
 .github-button {
     margin-top: 20px;
